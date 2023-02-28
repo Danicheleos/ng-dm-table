@@ -1,0 +1,13 @@
+<div class="table">
+  <div class="table-header">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="table-body">
+    <div class="table-row" *ngFor="let element of data; let index = index">
+      <div class="table-cell" *ngFor="let columnName of columnNames">
+        {{ element[columnName] }}
+      </div>
+    </div>
+  </div>
+</div>

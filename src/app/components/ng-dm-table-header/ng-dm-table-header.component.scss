@@ -1,0 +1,18 @@
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.header-title {
+  height: 100%;
+  padding: 5px 10px;
+  display: flex;
+  border: 1px solid #969696;
+
+  span {
+    margin: auto;
+  }
+}
+.header-children {
+  display: flex;
+}
