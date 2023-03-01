@@ -5,9 +5,9 @@
 
   <div class="table-body">
     <div class="table-row" *ngFor="let element of data; let index = index">
-      <div class="table-cell" *ngFor="let columnName of columnNames">
-        {{ element[columnName] }}
-      </div>
+      <ng-dm-table-cell [uniqId]="column.uniqId" class="table-cell" *ngFor="let column of columnNames">
+       {{ element[column.name] }}
+      </ng-dm-table-cell>
     </div>
   </div>
 </div>

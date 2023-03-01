@@ -1,4 +1,6 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Input, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Input, OnInit, QueryList, Renderer2, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { HeaderData } from 'src/app/core/interfaces/header-data.interface';
+import { NgDmTableCellComponent } from '../ng-dm-table-cell/ng-dm-table-cell.component';
 import { NgDmTableHeaderComponent } from '../ng-dm-table-header/ng-dm-table-header.component';
 
 @Component({
@@ -9,11 +11,12 @@ import { NgDmTableHeaderComponent } from '../ng-dm-table-header/ng-dm-table-head
 })
 export class NgDmTableComponent implements AfterViewInit {
   @ContentChildren(NgDmTableHeaderComponent) public readonly tableHeader: QueryList<NgDmTableHeaderComponent>;
+  @ViewChildren(NgDmTableCellComponent) public readonly cells: NgDmTableCellComponent;
   @Input() data: any[] = [];
 
-  public columnNames: string[] = [];
+  public columnNames: HeaderData[] = [];
 
-  constructor(private cdRef: ChangeDetectorRef) {}
+  constructor(private cdRef: ChangeDetectorRef, private elementRef: ElementRef, private renderer: Renderer2) {}
 
   public ngAfterViewInit(): void {
     this.initColumns();
@@ -29,7 +32,8 @@ export class NgDmTableComponent implements AfterViewInit {
           readHeaders(header.tableHeader);
           return;
         }
-        this.columnNames.push(header.name);
+        const { name, uniqId } = header;
+        this.columnNames.push({ name, uniqId });
       })
     }
 
